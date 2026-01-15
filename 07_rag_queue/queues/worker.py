@@ -1,0 +1,44 @@
+from dotenv import load_dotenv
+from langchain_openai import OpenAIEmbeddings
+from langchain_qdrant import QdrantVectorStore
+from openai import OpenAI
+
+load_dotenv()
+
+# Vector embeddings
+embedding_model = OpenAIEmbeddings(
+    model="text-embedding-3-large"
+)
+
+openai_client = OpenAI()
+
+# Vector DB connection
+vector_store = QdrantVectorStore.from_existing_collection(
+    embedding=embedding_model,
+    url="http://localhost:6333",
+    collection_name="learning_rag"
+)
+
+def process_query(query:str):
+    search_results = vector_store.similarity_search(query=query)
+
+    context = "\n\n\n".join([f"Page Content: {result.page_content}\nPage Number: {result.metadata['page_label']}\nFile Location: {result.metadata['source']}" for result in search_results])
+
+    SYSTEM_PROMPT = f"""
+    You're a helpful system assistance who answers user query based on the available context retreived from pdf file along with page contents and page number.
+
+    You should answer based on the following context and navigate the user to open the right page number to know more.
+
+    context: {context}
+    """
+
+    response = openai_client.chat.completions.create(
+        model="gpt-5",
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": query}
+        ]
+    )
+
+    print(f"🤖: {response.choices[0].message.content}")
+    return response.choices[0].message.content

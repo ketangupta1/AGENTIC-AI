@@ -2,9 +2,11 @@
 
 ### 🧩 Architecture Overview
 **Indexing of PDF**
+
 PDF → Text → Chunks → Embeddings → Vector Database (Qdrant)
 
 **Retreival and user question answer**
+
 User Question → Embedding → Vector Search → LLM → Answer
 
 ---
