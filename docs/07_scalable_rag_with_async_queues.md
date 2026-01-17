@@ -31,18 +31,19 @@
 ### FastAPI endpoints setup for chat queue
 - Install fastapi standard. (python -m pip install fastapi uvicorn[standard])
 
+### Asynchronous message enqueue with fastAPI
+- create an fastAPI app, create server.py for routes and main.py.
+- write a post API which will take user query in the request, and take the processor process_request.
+- Then take the user_query in process_request and enqueue the process.
+- you will get the job in return take that job and query the redis for the result.
+- Run it: python3 -m 07_rag_queue.main
 
-### 🧩 Architecture Overview
-**Indexing of PDF**
+### FastAPI polling and dequeueing message from async queue
+- create a new route job-status which will take job_id and send the result whatever processed.
 
-PDF → Text → Chunks → Embeddings → Vector Database (Qdrant)
-
-**Retreival and user question answer**
-
-User Question → Embedding → Vector Search → LLM → Answer
-
----
-
-Steps to run qdrant DB in docker. create docker-compose.yml file and then run command: docker compose up. It will start running the qdrant vector db in docker. If you will close the terminal (clrl+c) it will stop the DB. SO run in detached mode: docker compose up -d
-
----
+### Running and scaling worker nodes for background processing
+- In this we will know how to run processor function in the background.
+- Open a new terminal and here we have to run worker. We have created worker file.
+- command to run worker: rq worker
+- I can run multiple worker as well, open new terminal and run command: rq worker.
+- Now you can fire multiple query and your multiple worker will work.
