@@ -7,3 +7,4 @@
 - Gpt-4o mini can take text as well as image in the input, so its a multi modal agent.
 
 ### Sending multimedia to LLM(Images)
+- Check image.py file for the code

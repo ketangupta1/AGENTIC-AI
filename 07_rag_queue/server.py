@@ -17,7 +17,7 @@ def chat(query: str=Query(..., description="The chat query of user")):
     job = queue.enqueue(process_query, query)
 
     return {"status": "queued", "JobId": job.id}
-# efccb02d-7c62-4997-afa9-c048fa259a25
+
 
 @app.get('/job-status')
 def get_result(job_id: str=Query(..., description="Enter the Job Id to know the result")):

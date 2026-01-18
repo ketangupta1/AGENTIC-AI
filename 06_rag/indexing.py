@@ -6,10 +6,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore
 
 
-# Steps to run qdrant DB in docker. create docker-compose.yml file and then run command: docker compose up
-# It will start running the qdrant vector db in docker. If you will close the terminal (clrl+c) it will stop the DB.
-# SO run in detached mode: docker compose up -d
-
 load_dotenv()
 
 pdf_path = Path(__file__).parent / "nodejs.pdf"
