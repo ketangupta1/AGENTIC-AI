@@ -1,0 +1,69 @@
+## 🚀 The Memory Layer- Building Short, Long and Semantic memory in AI agents
+
+### What is memory in AI and agents
+- There is context window for each LLM, for openAI its ~ 1M tokens.
+- So for getting the answer from the LLM we have to send all the contexts of previous chat.
+- This chat is getting longer and longer and it might be possible after sometime it will overflow the context window, then the LLM will not having the context of chats which happened before.
+- So to tackle this situation we use a central store like memory in which all the facts will be stored , and these facts will be used by agent everytime when we call the agent.
+- We will be creating memory graph from each chat.
+
+---
+
+### Different types of memory in AI and agents
+- Short term memory(STM): while you are in session, while the task is getting performed.
+- Long term memory(LTM): stays forever. your name, age etc -> 1.Factual Memory 2.Episodic Memory 3.Semantic Memory
+
+---
+
+### Short Term Memory
+- Lets assume you went to hotel -> order burger -> Token no. 132 -> Trying to see the order screen -> order delivered -> Forget about the Token no. (data deleted).
+- So like if we are checking this using a bot and asking about the status of the token no. it will take the no. from previous chat it will not ask token no. again and again, here we have to send whole chat to the llm related to this token no. and when order delivered this session will ends and then this chat will be deleted.
+- Short-term memory (STM) enables an AI agent to remember recent inputs for immediate decision-making. This type of memory is useful in conversational AI, where maintaining context across multiple exchanges is required.
+- For example, a chatbot that remembers previous messages within a session can provide coherent responses instead of treating each user input in isolation, improving user experience. For example, OpenAI’s ChatGPT retains chat history within a single session, helping to ensure smoother and more context-aware conversations.
+
+---
+
+### Long Term Memory
+- It is scoped to a user rather than a session.
+- It is stored in persistent memory like vector DB, graph DB or in MemO
+- Content from here goes to the context to the LLM.
+- But at a point this will also cross the context windows. So we can't send everything from this memory in context.
+
+---
+
+### Factual Memory
+- Facts about the user. Like: name, age etc.
+- This is in very small amount as facts about the user is not too big.
+- So it will be always there in the context bcz its consuming very less amount of memory.
+
+---
+
+### Epidemic Memory
+- Stores past interactions or outcomes.
+- It's on demand memory, not will be send to the context.
+- If user talks about something you fetch it from DB and fed to the context.
+
+---
+
+### Semantic Memory
+- Stores generalized, abstract knowledge acquire over time.
+- This is not much important memory.
+
+---
+
+### Mem0 setup with Python for AI Memory Layer
+- mem0 (usually written as Mem0) is an external, long-term memory service for AI agents. It lets LLM apps remember user facts and context across sessions, beyond a single prompt or chat history.
+- Think of it as “persistent memory for AI”, separate from LangChain or LangGraph state.
+- pip install mem0ai
+
+---
+
+### Mem0 configurations with python Agents
+- You have to create config for initialize the memory.
+- You have to give embedding, llm and vector store configurations in the config to create client for memory.
+
+---
+
+### Using vector database for AI Agent Memory
+- So qdrant vector DB has used for storage of the context.
+- Mem0 Memory is used to store and search in the the DB about the user.
