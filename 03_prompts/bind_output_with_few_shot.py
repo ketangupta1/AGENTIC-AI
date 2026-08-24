@@ -50,4 +50,4 @@ response = client.chat.completions.create(
     ]
 )
 
-print(f"🤖: {response.choices[0].message.content}")
+print(response.choices[0].message.content)

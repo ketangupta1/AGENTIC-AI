@@ -22,3 +22,9 @@
 - The advantage of this architecture is you can use any LLM.
 - Here we are not binded to specific model we can choose any LLM and any model of that LLM.
 - Here we can do anything we can use tool, we can use langGraph, langchain.
+
+---
+
+### Setting up STT for Chained convertational Agents
+- For taking voice input of user we will use SpeechRecognition.
+- pip install SpeechRecognition
